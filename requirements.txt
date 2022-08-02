@@ -1,0 +1,10 @@
+Django<4
+
+git+https://github.com/juanifioren/django-oidc-provider
+
+dbsettings
+django-autosecretkey
+
+# For MySQL:
+
+mysqlclient
