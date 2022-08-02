@@ -126,3 +126,7 @@ STATIC_ROOT = CONFIG_FILE.config.get("App", "StaticDir", fallback=BASE_DIR / "st
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# OIDC Configuration
+
+OIDC_USERINFO = 'core.oidc.userinfo'
