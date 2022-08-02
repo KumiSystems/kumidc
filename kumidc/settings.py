@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 CONFIG_FILE = AutoSecretKey(BASE_DIR / "config.ini", template="config.dist.ini")
 SECRET_KEY = CONFIG_FILE.secret_key
 
-DEBUG = CONFIG_FILE.config["App"]["Debug"]
+DEBUG = CONFIG_FILE.config.getboolean("App", "Debug", fallback=False)
 
 ALLOWED_HOSTS = json.loads(CONFIG_FILE.config["App"]["Hosts"])
 
