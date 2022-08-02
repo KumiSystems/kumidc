@@ -130,3 +130,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # OIDC Configuration
 
 OIDC_USERINFO = 'core.oidc.userinfo'
+OIDC_IDTOKEN_INCLUDE_CLAIMS = True
