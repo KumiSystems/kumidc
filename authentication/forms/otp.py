@@ -13,6 +13,9 @@ class TOTPLoginForm(forms.Form):
         self.user_cache = None
         super().__init__(*args, **kwargs)
 
+    def get_user(self):
+        return self.user_cache
+
     def clean_token(self):
         token = str(self.cleaned_data.get('token')).zfill(6)
 
@@ -20,7 +23,7 @@ class TOTPLoginForm(forms.Form):
             user = self.request.user
         else:
             sessionid = self.request.session["AuthSession"]
-            session = AuthSession.objects.get(sessionid)
+            session = AuthSession.objects.get(id=sessionid)
             user = session.user
 
         if user.totpsecret.verify(token):

@@ -9,6 +9,7 @@ from frontend.mixins.views import TitleMixin
 class TOTPLoginView(TitleMixin, AuthSessionRequiredMixin, LoginView):
     form_class = TOTPLoginForm
     title = "Verify"
+    template_name = "auth/totplogin.html"
 
     def form_valid(self, form):
         self.request.session["LastActivity"] = timezone.now().timestamp()
