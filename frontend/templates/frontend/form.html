@@ -1,0 +1,41 @@
+{% extends "frontend/base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="m-0">{{ title }}</h5>
+            </div>
+            <div class="card-body">
+              <p class="card-text">
+                <form method="post">
+
+                    {% csrf_token %}
+                    {% block form %}
+                    {{ form|crispy }}
+                    {% endblock %}
+                    {% block buttons %}
+                    <input class="btn btn-primary" type="submit" value="Save" />
+                    {% endblock %}
+
+                </form>
+
+              </p>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.col-md-6 -->
+
+      </div>
+      <!-- /.row -->
+    </div><!-- /.container-fluid -->
+  </div>
+  <!-- /.content -->
+{% endblock %}

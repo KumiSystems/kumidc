@@ -1,0 +1,20 @@
+{% extends "frontend/form.html" %}
+
+{% load qrcode %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+{% if not request.user.totpsecret.active %}
+    Huh, how did you end up here? Your two-factor token is not active!
+{% else %}
+    <p>Two-factor authentication is currently enabled for your account. If you wish to disable it, please enter the token displayed by your authentication app.</p>
+    {{ form | crispy }}
+{% endif %}
+{% endblock %}
+
+{% block buttons %}
+{% if not request.user.totpsecret.active %}
+{% else %}
+<input class="btn btn-primary" type="submit" value="Save" />
+{% endif %}
+{% endblock %}

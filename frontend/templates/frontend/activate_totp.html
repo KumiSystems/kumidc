@@ -1,0 +1,21 @@
+{% extends "frontend/form.html" %}
+
+{% load qrcode %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+{% if request.user.totpsecret.active %}
+    Huh, how did you end up here? Your two-factor token is already active!
+{% else %}
+    <p>Please scan the following QR code with your authenticator app and confirm by entering the displayed token in the field below:</p>
+    <img style="min-width: 10%;" src="{% url_to_qrcode request.user.totpsecret.get_uri %}">
+    {{ form |  crispy }}
+{% endif %}
+{% endblock %}
+
+{% block buttons %}
+{% if request.user.totpsecret.active %}
+{% else %}
+<input class="btn btn-primary" type="submit" value="Save" />
+{% endif %}
+{% endblock %}

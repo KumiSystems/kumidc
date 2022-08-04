@@ -5,6 +5,14 @@ git+https://github.com/juanifioren/django-oidc-provider
 dbsettings
 django-autosecretkey
 
+pyotp
+django-timezone-field
+django-phonenumber-field[phonenumbers]
+django-annoying
+django-crispy-forms
+pyqrcode
+pypng
+
 # For MySQL:
 
 mysqlclient

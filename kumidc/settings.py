@@ -1,3 +1,5 @@
+from django.urls import reverse_lazy
+
 from pathlib import Path
 
 import json
@@ -25,7 +27,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'phonenumber_field',
+    'crispy_forms',
+
     'core',
+    'authentication',
+    'frontend',
     'oidc_provider',
 ]
 
@@ -88,6 +96,9 @@ else:
 
 AUTH_USER_MODEL = "core.User"
 
+LOGIN_URL = reverse_lazy("auth:login")
+LOGIN_REDIRECT_URL = reverse_lazy("frontend:dashboard")
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -131,3 +142,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 OIDC_USERINFO = 'core.oidc.userinfo'
 OIDC_IDTOKEN_INCLUDE_CLAIMS = True
+OIDC_AFTER_USERLOGIN_HOOK = "authentication.hooks.oidc.authorize_hook"
+OIDC_TEMPLATES = {
+    'authorize': 'frontend/oidc/authorize.html'
+}
+
+
+# Session Timeouts
+
+REVERIFY_AFTER_INACTIVITY_MINUTES = 5
