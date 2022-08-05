@@ -18,7 +18,8 @@ class LoginView(OnlyLoggedOutMixin, TitleMixin, DjangoLoginView):
         if has_otp(user := form.get_user()):
             session = AuthSession.objects.create(user=user)
             self.request.session["AuthSession"] = str(session.id)
-            return HttpResponseRedirect(reverse_lazy("auth:totplogin"))
+            attrs = ("?" + self.request.GET.urlencode()) if self.request.GET else ""
+            return HttpResponseRedirect(reverse_lazy("auth:totplogin") + attrs)
 
         self.request.session["LastActivity"] = timezone.now().timestamp()
         return super().form_valid(form)
