@@ -12,6 +12,7 @@ django-annoying
 django-crispy-forms
 pyqrcode
 pypng
+django-ajax-datatable
 
 # For MySQL:
 

@@ -39,8 +39,11 @@
                 <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-lock-open"></i>
                         <p>Authorized Apps</p>
                     </a></li>
+                    <li class="nav-item"><a href="{% url "frontend:authorization_log" %}" class="nav-link"><i class="nav-icon fas fa-list-check"></i>
+                        <p>Access Log</p>
+                    </a></li>
                 <li class="nav-header">DEVELOPER</li>
-                <li class="nav-item"><a href="#" class="nav-link"><i class="nav-icon fas fa-code"></i>
+                <li class="nav-item"><a href="{% url "frontend:client_list" %}" class="nav-link"><i class="nav-icon fas fa-code"></i>
                     <p>My Apps</p>
                 </a></li>
             </ul>

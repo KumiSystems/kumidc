@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     'phonenumber_field',
     'crispy_forms',
+    'ajax_datatable',
 
     'core',
     'authentication',

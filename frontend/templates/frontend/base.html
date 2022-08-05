@@ -13,6 +13,10 @@
   <link rel="stylesheet" href="{% static "frontend/dist/css/fontawesome-all.min.css" %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static "frontend/dist/css/adminlte.min.css" %}">
+
+  {% block styles %}
+  {% endblock %}
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -83,5 +87,9 @@
 <script src="{% static "frontend/dist/js/bootstrap.bundle.min.js" %}"></script>
 <!-- AdminLTE App -->
 <script src="{% static "frontend/dist/js/adminlte.min.js" %}"></script>
+
+{% block scripts %}
+{% endblock %}
+
 </body>
 </html>
