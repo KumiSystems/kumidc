@@ -10,6 +10,7 @@ class Profile(models.Model):
     user = AutoOneToOneField(get_user_model(), models.CASCADE)
     first_name = models.CharField(max_length=128, null=True, blank=True)
     middle_name = models.CharField(max_length=128, null=True, blank=True)
+    last_name = models.CharField(max_length=128, null=True, blank=True)
     nickname = models.CharField(max_length=128, null=True, blank=True)
     preferred_username = models.CharField(max_length=128, null=True, blank=True)
     website = models.CharField(max_length=128, null=True, blank=True)
