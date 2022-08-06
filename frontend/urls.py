@@ -5,7 +5,7 @@ from .views.password import PasswordChangeView
 from .views.otp import TOTPActivationView, TOTPDeactivationView, TOTPDispatcherView
 from .views.log import AuthorizationLogView
 from .views.datatables.log import AuthorizationLogDataView
-from .views.clients import ClientView, ClientEditView
+from .views.clients import ClientView, ClientEditView, ClientCreateView
 from .views.datatables.clients import ClientDataView
 
 
@@ -21,4 +21,5 @@ urlpatterns = [
     path("apps/", ClientView.as_view(), name="client_list"),
     path("apps/data/", ClientDataView.as_view(), name="client_list_data"),
     path("apps/<int:pk>/edit/", ClientEditView.as_view(), name="client_edit"),
+    path("apps/new/", ClientCreateView.as_view(), name="client_create"),
 ]
