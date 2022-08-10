@@ -19,5 +19,7 @@ class ProfileUpdateView(UpdateView):
 
 
 class OwnProfileView(ProfileUpdateView):
+    template_name = "frontend/my_profile.html"
+
     def get_object(self, queryset=None):
         return self.request.user.profile
