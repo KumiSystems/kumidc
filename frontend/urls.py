@@ -7,11 +7,13 @@ from .views.log import AuthorizationLogView
 from .views.datatables.log import AuthorizationLogDataView
 from .views.clients import ClientView, ClientEditView
 from .views.datatables.clients import ClientDataView
+from .views.profile import OwnProfileView
 
 
 urlpatterns = [
     path("", IndexView.as_view()),
     path("dashboard/", DashboardView.as_view(), name="dashboard"),
+    path("profile/", OwnProfileView.as_view(), name="profile"),
     path("profile/change_password/", PasswordChangeView.as_view(), name="change_password"),
     path("profile/totp/", TOTPDispatcherView.as_view(), name="totp"),
     path("profile/totp/activate/", TOTPActivationView.as_view(), name="activate_totp"),
