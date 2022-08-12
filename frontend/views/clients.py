@@ -43,12 +43,16 @@ class ClientCreateView(TimeoutMixin, TitleMixin, CreateView):
         return get_object_or_404(Client, owner=self.request.user, client_id=self.kwargs["pk"])
 
     def form_valid(self, form):
-      self.object = form.save(commit=False)
+        self.object = form.save(commit=False)
 
-      self.object.owner = self.request.user
-      self.object.save()
+        self.object.owner = self.request.user
 
-      return super().form_valid(form)
+        # Re-request consent (i.e. display authorization page) every time
+        self.object.reuse_consent = False
+
+        self.object.save()
+
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy("frontend:client_edit", args=(self.object.client_id,))
