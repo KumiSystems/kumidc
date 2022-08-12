@@ -13,4 +13,4 @@ class ClientEditForm(ClientForm):
 class ClientCreateForm(ClientForm):
     class Meta:
         model = Client
-        fields = ['name', 'client_type', 'response_types', 'jwt_alg', '_redirect_uris']
+        fields = ['name', 'client_type', 'response_types', 'jwt_alg', '_redirect_uris', 'client_id', 'client_secret']
