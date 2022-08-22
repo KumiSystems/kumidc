@@ -1,8 +1,14 @@
 from django.urls import reverse_lazy
 
 from pathlib import Path
+from urllib.parse import urljoin
 
 import json
+
+import saml2
+
+from saml2.saml import NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED
+from saml2.sigver import get_xmlsec_binary
 
 from autosecretkey import AutoSecretKey
 
@@ -16,7 +22,9 @@ SECRET_KEY = CONFIG_FILE.secret_key
 DEBUG = CONFIG_FILE.config.getboolean("App", "Debug", fallback=False)
 
 ALLOWED_HOSTS = json.loads(CONFIG_FILE.config["App"]["Hosts"])
+BASE_URL = CONFIG_FILE.config["App"]["BaseURL"]
 
+CERTIFICATE_DIR = Path(CONFIG_FILE.config.get("App", "CertificateDir", fallback=BASE_DIR / "certificates"))
 
 # Application definition
 
@@ -35,7 +43,9 @@ INSTALLED_APPS = [
     'core',
     'authentication',
     'frontend',
+
     'oidc_provider',
+    'djangosaml2idp',
 ]
 
 MIDDLEWARE = [
@@ -148,6 +158,52 @@ OIDC_TEMPLATES = {
     'authorize': 'frontend/oidc/authorize.html'
 }
 
+# SAML Configuration
+
+SAML_IDP_CONFIG = {
+    'debug' : DEBUG,
+    'xmlsec_binary': get_xmlsec_binary(['/opt/local/bin', '/usr/bin']),
+    'entityid': urljoin(BASE_URL, '/saml/metadata/'),
+    'description': 'KumiDC',
+
+    'service': {
+        'idp': {
+            'name': 'KumiDC',
+            'endpoints': {
+                'single_sign_on_service': [
+                    #(urljoin(BASE_URL, '/saml/sso/post/'), saml2.BINDING_HTTP_POST),
+                    (urljoin(BASE_URL, '/saml/sso/redirect/'), saml2.BINDING_HTTP_REDIRECT),
+                ],
+                "single_logout_service": [
+                    #(urljoin(BASE_URL, "/saml/slo/post/"), saml2.BINDING_HTTP_POST),
+                    (urljoin(BASE_URL, "/saml/slo/redirect/"), saml2.BINDING_HTTP_REDIRECT)
+                ],
+            },
+            'name_id_format': [NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED],
+            'sign_response': True,
+            'sign_assertion': True,
+            'want_authn_requests_signed': True,
+        },
+    },
+
+    # Signing
+    'key_file': str(CERTIFICATE_DIR / 'saml.key'),
+    'cert_file': str(CERTIFICATE_DIR / 'saml.crt'),
+
+    # Encryption
+    'encryption_keypairs': [{
+        'key_file': str(CERTIFICATE_DIR / 'saml.key'),
+        'cert_file': str(CERTIFICATE_DIR / 'saml.crt'),
+    }],
+
+    'valid_for': 365 * 24,
+}
+
+SAML_IDP_SP_FIELD_DEFAULT_PROCESSOR = 'core.saml.processors.SAMLProcessor'
+SAML_IDP_MULTIFACTOR_VIEW = "frontend.views.saml.SAMLMultiFactorView"
+
+SAML_AUTHN_SIGN_ALG = saml2.xmldsig.SIG_RSA_SHA256
+SAML_AUTHN_DIGEST_ALG = saml2.xmldsig.DIGEST_SHA256
 
 # Session Timeouts
 

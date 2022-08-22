@@ -1,10 +1,14 @@
 Django<4
 
-git+https://github.com/juanifioren/django-oidc-provider
+django-oidc-provider
+djangosaml2idp
 
 dbsettings
 django-autosecretkey
 
+git+https://github.com/IdentityPython/pysaml2
+
+cryptography
 pyotp
 django-timezone-field
 django-phonenumber-field[phonenumbers]

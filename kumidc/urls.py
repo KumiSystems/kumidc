@@ -4,9 +4,12 @@ from django.views.generic import RedirectView
 
 
 urlpatterns = [
+    re_path(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
+    re_path(r'^saml/', include('djangosaml2idp.urls', namespace="djangosaml2idp")),
+
     path('admin/login/', RedirectView.as_view(url=reverse_lazy("auth:login"), query_string=True)),
     path('admin/', admin.site.urls),
-    re_path(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
+    
     path('auth/', include(("authentication.urls", "auth"))),
     path('', include(("frontend.urls", "frontend"))),
 ]
