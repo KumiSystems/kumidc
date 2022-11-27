@@ -1,5 +1,5 @@
 from django.contrib.auth import REDIRECT_FIELD_NAME, logout
-from django.contrib.auth.views import SuccessURLAllowedHostsMixin
+from django.contrib.auth.views import RedirectURLMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.conf import settings
@@ -11,7 +11,7 @@ from django.shortcuts import resolve_url
 from ..models.session import AuthSession
 
 
-class AuthSessionRequiredMixin(SuccessURLAllowedHostsMixin):
+class AuthSessionRequiredMixin(RedirectURLMixin):
     redirect_field_name = REDIRECT_FIELD_NAME
     redirect_authenticated_user = True
 

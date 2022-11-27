@@ -5,7 +5,8 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     re_path(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
-    re_path(r'^saml/', include('djangosaml2idp.urls', namespace="djangosaml2idp")),
+    
+    re_path(r'^saml/', include('djangosaml2idp.urls')),
 
     path('admin/login/', RedirectView.as_view(url=reverse_lazy("auth:login"), query_string=True)),
     path('admin/', admin.site.urls),

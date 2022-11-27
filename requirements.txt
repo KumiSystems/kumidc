@@ -1,12 +1,10 @@
-Django<4
+Django
 
-django-oidc-provider
-djangosaml2idp
+git+https://kumig.it/kumitterer/django-oidc-provider/
+git+https://github.com/OTA-Insight/djangosaml2idp/
 
 dbsettings
 django-autosecretkey
-
-git+https://github.com/IdentityPython/pysaml2
 
 cryptography
 pyotp

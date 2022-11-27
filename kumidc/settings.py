@@ -22,6 +22,7 @@ SECRET_KEY = CONFIG_FILE.secret_key
 DEBUG = CONFIG_FILE.config.getboolean("App", "Debug", fallback=False)
 
 ALLOWED_HOSTS = json.loads(CONFIG_FILE.config["App"]["Hosts"])
+CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS]
 BASE_URL = CONFIG_FILE.config["App"]["BaseURL"]
 
 CERTIFICATE_DIR = Path(CONFIG_FILE.config.get("App", "CertificateDir", fallback=BASE_DIR / "certificates"))
@@ -171,18 +172,18 @@ SAML_IDP_CONFIG = {
             'name': 'KumiDC',
             'endpoints': {
                 'single_sign_on_service': [
-                    #(urljoin(BASE_URL, '/saml/sso/post/'), saml2.BINDING_HTTP_POST),
+                    (urljoin(BASE_URL, '/saml/sso/post/'), saml2.BINDING_HTTP_POST),
                     (urljoin(BASE_URL, '/saml/sso/redirect/'), saml2.BINDING_HTTP_REDIRECT),
                 ],
                 "single_logout_service": [
-                    #(urljoin(BASE_URL, "/saml/slo/post/"), saml2.BINDING_HTTP_POST),
+                    (urljoin(BASE_URL, "/saml/slo/post/"), saml2.BINDING_HTTP_POST),
                     (urljoin(BASE_URL, "/saml/slo/redirect/"), saml2.BINDING_HTTP_REDIRECT)
                 ],
             },
             'name_id_format': [NAMEID_FORMAT_EMAILADDRESS, NAMEID_FORMAT_UNSPECIFIED],
-            'sign_response': True,
-            'sign_assertion': True,
-            'want_authn_requests_signed': True,
+            'sign_response': False,
+            'sign_assertion': False,
+            'want_authn_requests_signed': False,
         },
     },
 
@@ -204,6 +205,37 @@ SAML_IDP_MULTIFACTOR_VIEW = "frontend.views.saml.SAMLMultiFactorView"
 
 SAML_AUTHN_SIGN_ALG = saml2.xmldsig.SIG_RSA_SHA256
 SAML_AUTHN_DIGEST_ALG = saml2.xmldsig.DIGEST_SHA256
+
+SAML_IDP_SHOW_CONSENT_FORM = True
+SAML_IDP_SHOW_USER_AGREEMENT_SCREEN = True
+
+DEFAULT_SPCONFIG = {
+    'processor': 'uniauth_saml2_idp.processors.ldap.LdapUnicalMultiAcademiaProcessor',
+    'attribute_mapping': {
+        "cn": "cn",
+        "eduPersonEntitlement": "eduPersonEntitlement",
+        "eduPersonPrincipalName": "eduPersonPrincipalName",
+        "schacHomeOrganization": "schacHomeOrganization",
+        "eduPersonHomeOrganization": "eduPersonHomeOrganization",
+        "eduPersonAffiliation": "eduPersonAffiliation",
+        "eduPersonScopedAffiliation": "eduPersonScopedAffiliation",
+        "eduPersonTargetedID": "eduPersonTargetedID",
+        "mail": ["mail", "email"],
+        "email": ["mail", "email"],
+        "schacPersonalUniqueCode": "schacPersonalUniqueCode",
+        "schacPersonalUniqueID": "schacPersonalUniqueID",
+        "sn": "sn",
+        "givenName": ["givenName", "another_possible_occourrence"],
+        "displayName": "displayName",
+    },
+    'display_name': 'Unical SP',
+    'display_description': 'This is for test purpose',
+    'display_agreement_message': 'Some information about you has been requested',
+    'signing_algorithm': saml2.xmldsig.SIG_RSA_SHA256,
+    'digest_algorithm': saml2.xmldsig.DIGEST_SHA256,
+    'disable_encrypted_assertions': True,
+    'show_user_agreement_screen': SAML_IDP_SHOW_USER_AGREEMENT_SCREEN
+}
 
 # Session Timeouts
 
