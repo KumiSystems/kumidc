@@ -7,11 +7,13 @@ dbsettings
 django-autosecretkey
 
 cryptography
+pysaml2
 pyotp
 django-timezone-field
 django-phonenumber-field[phonenumbers]
 django-annoying
 django-crispy-forms
+crispy-bootstrap4
 pyqrcode
 pypng
 django-ajax-datatable
