@@ -10,6 +10,7 @@ from django.shortcuts import resolve_url
 from urllib.parse import urlparse
 
 from ..models.otp import TOTPSecret
+from ..models.app import AppSession
 
 
 class TimeoutMixin:
@@ -30,6 +31,9 @@ class TimeoutMixin:
             elif request.session["LastActivity"] < (timezone.now() - timezone.timedelta(minutes=settings.REVERIFY_AFTER_INACTIVITY_MINUTES)).timestamp():
                 try:
                     assert request.user.totpsecret.active
+
+                    request.session["AppSession"] = AppSession.get_for_user(request.user)
+
                     return redirect_to_login(path, resolve_url("auth:reverify"), REDIRECT_FIELD_NAME)
                 except (AssertionError, TOTPSecret.DoesNotExist):
                     messages.error(
@@ -39,6 +43,7 @@ class TimeoutMixin:
                     messages.error(
                         request, "Something went wrong, please try logging in again."
                     )
+                    logout(request)
 
             else:
                 request.session["LastActivity"] = timezone.now().timestamp()

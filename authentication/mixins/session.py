@@ -10,6 +10,16 @@ from django.shortcuts import resolve_url
 
 from ..models.session import AuthSession
 
+# Somewhat shamelessly copied from django.contrib.auth.views
+#
+# Original source:
+# https://github.com/django/django/blob/main/django/contrib/auth/views.py
+#
+# License:
+# BSD 3-Clause "New" or "Revised" License
+# Copyright (c) Django Software Foundation and individual contributors.
+# All rights reserved.
+# https://github.com/django/django/blob/main/LICENSE
 
 class AuthSessionRequiredMixin(RedirectURLMixin):
     redirect_field_name = REDIRECT_FIELD_NAME

@@ -15,6 +15,7 @@ django-crispy-forms
 pyqrcode
 pypng
 django-ajax-datatable
+pyjwt
 
 # For MySQL:
 
