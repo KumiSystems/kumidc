@@ -23,7 +23,7 @@ class ReverifyView(TitleMixin, LoginView):
             app_session = AppSession.objects.get(id=self.request.session["AppSession"])
             app_session.used = True
             app_session.save()
-        except AppSession.DoesNotExist:
+        except (AppSession.DoesNotExist, KeyError):
             pass
 
         return HttpResponseRedirect(self.get_success_url())
