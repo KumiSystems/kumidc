@@ -25,8 +25,6 @@ ALLOWED_HOSTS = json.loads(CONFIG_FILE.config["App"]["Hosts"])
 CSRF_TRUSTED_ORIGINS = [f"https://{host}" for host in ALLOWED_HOSTS]
 BASE_URL = CONFIG_FILE.config["App"]["BaseURL"]
 
-APPEND_SLASH = False
-
 CERTIFICATE_DIR = Path(CONFIG_FILE.config.get("App", "CertificateDir", fallback=BASE_DIR / "certificates"))
 
 # Application definition
