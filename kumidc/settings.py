@@ -240,3 +240,7 @@ DEFAULT_SPCONFIG = {
 # Session Timeouts
 
 REVERIFY_AFTER_INACTIVITY_MINUTES = 5
+
+# Crispy Forms
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
