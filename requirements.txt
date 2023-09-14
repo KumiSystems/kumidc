@@ -8,6 +8,7 @@ django-autosecretkey
 
 cryptography
 pysaml2
+ldaptor
 pyotp
 django-timezone-field
 django-phonenumber-field[phonenumbers]
