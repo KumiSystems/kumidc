@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'oidc_provider',
     'djangosaml2idp',
+    'cas_server',
 ]
 
 MIDDLEWARE = [
@@ -237,6 +238,10 @@ DEFAULT_SPCONFIG = {
     'disable_encrypted_assertions': True,
     'show_user_agreement_screen': SAML_IDP_SHOW_USER_AGREEMENT_SCREEN
 }
+
+# CAS Settings
+
+CAS_AUTH_CLASS = "authentication.cas.KumiDCAuthUser"
 
 # Session Timeouts
 

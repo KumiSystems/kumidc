@@ -1,6 +1,7 @@
 Django
 
 git+https://kumig.it/kumitterer/django-oidc-provider/
+git+https://kumig.it/kumitterer/django-cas-server/
 git+https://github.com/OTA-Insight/djangosaml2idp/
 
 dbsettings

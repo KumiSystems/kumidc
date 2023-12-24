@@ -1,12 +1,12 @@
 from django.contrib import admin
-from django.urls import path, re_path, include, reverse_lazy
+from django.urls import path, include, reverse_lazy
 from django.views.generic import RedirectView
 
 
 urlpatterns = [
-    re_path(r'^openid/', include('oidc_provider.urls', namespace='oidc_provider')),
-    
-    re_path(r'^saml/', include('djangosaml2idp.urls')),
+    path('openid/', include('oidc_provider.urls', 'oidc_provider')),
+    path('saml/', include('djangosaml2idp.urls', 'djangosaml2idp')),
+    path('cas/', include('cas_server.urls', "cas_server")),
 
     path('admin/login/', RedirectView.as_view(url=reverse_lazy("auth:login"), query_string=True)),
     path('admin/', admin.site.urls),

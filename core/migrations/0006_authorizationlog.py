@@ -8,7 +8,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('oidc_provider', '0027_auto_20220810_0605'),
         ('core', '0005_profile_last_name'),
     ]
 
