@@ -1,26 +1,25 @@
-Django
+Django # Duh.
 
-git+https://kumig.it/kumitterer/django-oidc-provider/
-git+https://kumig.it/kumitterer/django-cas-server/
-git+https://github.com/OTA-Insight/djangosaml2idp/
+git+https://kumig.it/kumitterer/django-oidc-provider/ # OIDC Provider
+git+https://kumig.it/kumitterer/django-cas-server/ # CAS Provider
+git+https://github.com/OTA-Insight/djangosaml2idp/ # SAML2 Provider
 
-dbsettings
-django-autosecretkey
+dbsettings # For settings in the database
+django-autosecretkey # For generating a secret key
 
-cryptography
-pysaml2
-ldaptor
-pyotp
-django-timezone-field
-django-phonenumber-field[phonenumbers]
-django-annoying
-django-crispy-forms
-crispy-bootstrap4
-pyqrcode
-pypng
-django-ajax-datatable
-pyjwt
-
-# For MySQL:
-
-mysqlclient
+cryptography # For working with key pairs
+pysaml2 # For interacting with SAML2
+ldaptor # For interacting with LDAP
+pyotp # For validating OTPs
+django-timezone-field # For storing timezones
+django-phonenumber-field[phonenumbers] # For storing phone numbers
+django-annoying # AutoOneToOneField
+django-crispy-forms # For pretty forms
+crispy-bootstrap4 # Bootstrap4 theme for crispy forms
+pyqrcode # For generating QR codes
+pypng # Needed by pyqrcode for PNG generation
+django-ajax-datatable # For pretty tables
+pyjwt # Working with JWTs
+pyrad # For everything RADIUS
+django-cidrfield # For storing subnets
+mysqlclient # For using MySQL as database
